@@ -168,7 +168,7 @@ def search_songs(
 
     for song in songs:
         value = str(song.get(field, "")).lower()
-        if value and value in q:
+        if value and q in value: #FIX PART 1: OG value in q which is incorrect bc the query can be a substr of the value and still match
             filtered.append(song)
 
     return filtered
