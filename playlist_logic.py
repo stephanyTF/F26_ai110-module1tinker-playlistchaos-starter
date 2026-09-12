@@ -57,29 +57,28 @@ def normalize_song(raw: Song) -> Song:
     }
 
 
+HYPE_KEYWORDS = ("rock", "punk", "party")
+CHILL_KEYWORDS = ("lofi", "ambient", "sleep")
+
+
 def classify_song(song: Song, profile: Dict[str, object]) -> str:
     """Return a mood label given a song and user profile."""
     energy = song.get("energy", 0)
-    genre = song.get("genre", "")
-    title = song.get("title", "")
+    genre = str(song.get("genre", "")).lower()
+    title = str(song.get("title", "")).lower()
+    text = f"{title} {genre}"
 
     hype_min_energy = profile.get("hype_min_energy", 7)
     chill_max_energy = profile.get("chill_max_energy", 3)
-    favorite_genre = profile.get("favorite_genre", "")
 
-    hype_keywords = ["rock", "punk", "party"]
-    chill_keywords = ["lofi", "ambient", "sleep"]
-
-    is_hype_keyword = any(k in genre for k in hype_keywords)
-    is_chill_keyword = any(k in title for k in chill_keywords)
-
-    if energy >= hype_min_energy  or is_hype_keyword:
+    if energy >= hype_min_energy:
         return "Hype"
-    if energy <= chill_max_energy or is_chill_keyword:
+    if energy <= chill_max_energy:
         return "Chill"
-     # PART 2 BUG 1 FIX:
-    if energy == hype_min_energy and energy == chill_max_energy and genre == favorite_genre :
-        return "Hype"  # Favor Hype if energy is exactly at the threshold w/ chill and genre matches favorite
+    if any(k in text for k in HYPE_KEYWORDS):
+        return "Hype"
+    if any(k in text for k in CHILL_KEYWORDS):
+        return "Chill"
     return "Mixed"
 
 

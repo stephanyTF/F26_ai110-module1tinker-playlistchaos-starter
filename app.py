@@ -212,7 +212,7 @@ def profile_sidebar():
             value=int(profile.get("chill_max_energy", 3)),
         )
 
-    #Thought to be P3 but should be in playlistlogic CLAUDE improved change
+    #Added 
     GENRES = ["rock", "lofi", "pop", "jazz", "electronic", "ambient", "other"]
     fav = profile.get("favorite_genre", "")
     
