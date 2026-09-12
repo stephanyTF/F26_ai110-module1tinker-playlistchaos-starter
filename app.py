@@ -1,3 +1,5 @@
+import profile
+
 import streamlit as st
 
 from playlist_logic import (
@@ -210,20 +212,14 @@ def profile_sidebar():
             value=int(profile.get("chill_max_energy", 3)),
         )
 
-    def get_favorite_genre_index():
-        ''' PERSONAL FIX: Return the index of the favorite genre in the options list, or 0 if not found. '''
-        genres_lst = ["rock", "lofi", "pop", "jazz", "electronic", "ambient","other"]
-        fav_genre = DEFAULT_PROFILE.get("favorite_genre", "")
-        if fav_genre in genres_lst:
-            return genres_lst.index(fav_genre)
-        else:
-            return 0 # Default to the first option if not found
+    #Thought to be P3 but should be in playlistlogic CLAUDE improved change
+    GENRES = ["rock", "lofi", "pop", "jazz", "electronic", "ambient", "other"]
+    fav = profile.get("favorite_genre", "")
     
     profile["favorite_genre"] = st.sidebar.selectbox(
         "Favorite genre",
-        options=["rock", "lofi", "pop", "jazz", "electronic", "ambient","other"], 
-        #PERSONAL FIX: added get_favorite_genre_index() to set the default index based on the current favorite genre in the default profile
-        index=get_favorite_genre_index(),
+        options=GENRES, 
+        index=GENRES.index(fav) if fav in GENRES else 0,
     )
 
     profile["include_mixed"] = st.sidebar.checkbox(
