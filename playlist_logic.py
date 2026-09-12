@@ -7,7 +7,7 @@ DEFAULT_PROFILE = {
     "name": "Default",
     "hype_min_energy": 7,
     "chill_max_energy": 3,
-    "favorite_genre": "rock",
+    "favorite_genre": "lofi", #rock --> ambient 
     "include_mixed": True,
 }
 
